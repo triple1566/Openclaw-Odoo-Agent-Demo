@@ -1,0 +1,12 @@
+odoo/
+odoo19/
+odoo17/
+odoo19_enterprise/
+odoo17_enterprise/
+openerp-web/
+.venv/
+.venv_17/
+.vscode/
+README.adminpw.md
+separate_ubuntusetup.txt
+custom_addons/openclaw_chat/.env

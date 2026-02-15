@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem
+        id="chat_menu_root"
+        name="OpenClaw"
+        sequence="1"/>
+
+</odoo>

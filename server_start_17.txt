@@ -1,0 +1,1 @@
+python3 odoo-bin --config=odoo.conf -d odoo17_enterprise

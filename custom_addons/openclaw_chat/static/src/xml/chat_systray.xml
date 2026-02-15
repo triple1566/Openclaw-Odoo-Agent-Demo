@@ -1,0 +1,5 @@
+<t t-name="openclaw_chat.ChatSystray">
+    <div class="o_systray_item" t-on-click="openChat">
+        <i class="fa fa-comments"/>
+    </div>
+</t>

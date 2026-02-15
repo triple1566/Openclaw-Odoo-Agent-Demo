@@ -1,0 +1,32 @@
+<t t-name="openclaw_chat.ChatPanel">
+    <Dialog title="'OpenClaw Assistant'" size="'medium'">
+        <div class="o_chat_panel">
+            <div class="o_chat_body">
+                <t t-foreach="state.messages" t-as="msg" t-key="msg.id">
+                    <div t-att-class="'o_msg ' + msg.role">
+                        <div class="o_msg__bubble">
+                            <t t-esc="msg.text"/>
+                        </div>
+                    </div>
+                </t>
+                <t t-if="!state.messages.length">
+                    <div class="o_chat_empty">OpenClaw Chat UI Prototype.</div>
+                </t>
+            </div>
+
+            <div class="o_chat_footer">
+                <div class="o_chat_input_wrap">
+                    <input
+                        class="o_chat_input"
+                        t-model="state.input"
+                        t-on-keydown="onKeydown"
+                        placeholder="Ask something…"
+                    />
+                    <button class="o_chat_send" t-on-click="send" type="button">
+                        Send
+                    </button>
+                </div>
+            </div>
+        </div>
+    </Dialog>
+</t>
