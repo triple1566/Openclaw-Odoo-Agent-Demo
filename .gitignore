@@ -10,3 +10,4 @@ openerp-web/
 README.adminpw.md
 separate_ubuntusetup.txt
 custom_addons/openclaw_chat/.env
+custom_addons/openclaw_chat/__pycache__/
