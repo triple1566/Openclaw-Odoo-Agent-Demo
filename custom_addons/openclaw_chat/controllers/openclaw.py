@@ -1,4 +1,5 @@
 from odoo import http
+from odoo.http import request
 import requests
 
 
@@ -11,18 +12,19 @@ class OpenClawController(http.Controller):
         auth="user"
     )
     def openclaw_chat(messages):
-        response = requests.post("https://openclaw.tail7c1161.ts.net/hooks/agent", 
-                             headers={"Authorization": "Bearer leohooks"},
+        claw_record = request.env['claw.chat'].search([('creator','=','admin')],limit=1)
+        #curl addr: - meshed to openclaw server using tailscale
+        response = requests.post(f"{claw_record.tailnet_addr}", 
+                             headers={"Authorization": f"Bearer {claw_record.hook_token}"},
                              json={
-                                "message": "Run this",
-                                "name": "Email",
+                                "message": f"You have recieved a request from the ceo: {messages} ====> Now using the odoo-openclaw api document in persistent memory, execute a curl command to execute odoo actions",
+                                "name": "Odoo",
                                 "agentId": "hooks",
-                                "sessionKey": "hook:email:msg-123",
+                                "sessionKey": "hook:odoo",
                                 "wakeMode": "now",
                                 "deliver": True,
                                 "channel": "last",
-                                "to": "+15551234567",
-                                "model": "openai/gpt-5.2-mini",
+                                "model": f"{claw_record.llm_model}",
                                 "thinking": "low",
                                 "timeoutSeconds": 120
                             })

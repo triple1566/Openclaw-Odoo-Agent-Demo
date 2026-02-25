@@ -3,7 +3,18 @@
 
     <menuitem
         id="chat_menu_root"
-        name="OpenClaw"
-        sequence="1"/>
+        name="OpenClaw Assistant"
+        sequence="1">
+        <menuitem
+            id="chat_menu_sub"
+            name="OpenClaw Sessions"
+            sequence="1">
+            <menuitem
+                id="chat_menu_action"
+                name="OpenClaw History"
+                sequence="1"
+                action="chat_view_action" />
+        </menuitem>
+    </menuitem>
 
 </odoo>
