@@ -1,3 +1,5 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_claw_chat_user,claw_chat user,model_claw_chat,base.group_user,1,1,1,1
 access_claw_chat_admin,claw_chat admin,model_claw_chat,base.group_system,1,1,1,1
+access_claw_receiver_user,claw_receiver user,model_claw_receiver,base.group_user,1,1,1,1
+access_claw_receiver_admin,claw_receiver admin,model_claw_receiver,base.group_system,1,1,1,1

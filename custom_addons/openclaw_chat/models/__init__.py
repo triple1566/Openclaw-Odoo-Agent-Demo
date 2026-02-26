@@ -1,1 +1,1 @@
-from . import claw_chat
+from . import claw_chat, claw_receiver
