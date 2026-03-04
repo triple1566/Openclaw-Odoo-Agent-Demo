@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+estate_property_user,estate_property user,model_estate_property,base.group_user,1,1,1,1
+estate_property_admin,estate_property admin,model_estate_property,base.group_system,1,1,1,1
