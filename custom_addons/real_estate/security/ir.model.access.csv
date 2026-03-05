@@ -1,3 +1,17 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 estate_property_user,estate_property user,model_estate_property,base.group_user,1,1,1,1
 estate_property_admin,estate_property admin,model_estate_property,base.group_system,1,1,1,1
+estate_property_type_user,estate_property_type user,model_estate_property_type,base.group_user,1,1,1,1
+estate_property_type_admin,estate_property_type admin,model_estate_property_type,base.group_system,1,1,1,1
+estate_property_buyer_user,estate_property_buyer user,model_estate_property_buyer,base.group_user,1,1,1,1
+estate_property_buyer_admin,estate_property_buyer admin,model_estate_property_buyer,base.group_system,1,1,1,1
+estate_property_seller_user,estate_property_seller user,model_estate_property_seller,base.group_user,1,1,1,1
+estate_property_seller_admin,estate_property_seller admin,model_estate_property_seller,base.group_system,1,1,1,1
+estate_property_tag_user,estate_property_tag user,model_estate_property_tag,base.group_user,1,1,1,1
+estate_property_tag_admin,estate_property_tag admin,model_estate_property_tag,base.group_system,1,1,1,1
+estate_property_offer_user,estate_property_offer user,model_estate_property_offer,base.group_user,1,1,1,1
+estate_property_offer_admin,estate_property_offer admin,model_estate_property_offer,base.group_system,1,1,1,1
+estate_property_sell_wizard_user,estate_property_sell_wizard user,model_estate_property_sell_wizard,base.group_user,1,1,1,1
+estate_property_sell_wizard_admin,estate_property_sell_wizard admin,model_estate_property_sell_wizard,base.group_system,1,1,1,1
+estate_property_bulk_update_wizard_user,estate_property_bulk_update_wizard user,model_estate_property_bulk_update_wizard,base.group_user,1,1,1,1
+estate_property_bulk_update_wizard_admin,estate_property_bulk_update_wizard admin,model_estate_property_bulk_update_wizard,base.group_system,1,1,1,1

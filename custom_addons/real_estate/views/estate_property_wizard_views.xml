@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_estate_property_sell_wizard_form" model="ir.ui.view">
+        <field name="name">estate.property.sell.wizard.form</field>
+        <field name="model">estate.property.sell.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Confirm Property Sale">
+                <group>
+                    <field name="property_id"/>
+                    <field name="note" placeholder="Optional internal note"/>
+                </group>
+                <footer>
+                    <button name="action_confirm_sale" type="object" string="Confirm" class="btn-primary"/>
+                    <button string="Cancel" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_estate_property_sell_wizard" model="ir.actions.act_window">
+        <field name="name">Confirm Sale</field>
+        <field name="res_model">estate.property.sell.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="view_estate_property_bulk_update_wizard_form" model="ir.ui.view">
+        <field name="name">estate.property.bulk.update.wizard.form</field>
+        <field name="model">estate.property.bulk.update.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Bulk Update Expected Price">
+                <group>
+                    <field name="percentage"/>
+                </group>
+                <footer>
+                    <button name="action_apply_bulk_update" type="object" string="Apply" class="btn-primary"/>
+                    <button string="Cancel" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_estate_property_bulk_update_wizard" model="ir.actions.act_window">
+        <field name="name">Bulk Update Expected Price</field>
+        <field name="res_model">estate.property.bulk.update.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="action_estate_property_bulk_update_server" model="ir.actions.server">
+        <field name="name">Bulk Update Expected Price</field>
+        <field name="model_id" ref="model_estate_property"/>
+        <field name="binding_model_id" ref="model_estate_property"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">
+action = {
+    "type": "ir.actions.act_window",
+    "name": "Bulk Update Expected Price",
+    "res_model": "estate.property.bulk.update.wizard",
+    "view_mode": "form",
+    "target": "new",
+    "context": {"active_ids": records.ids},
+}
+        </field>
+    </record>
+</odoo>

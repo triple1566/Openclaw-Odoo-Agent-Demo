@@ -15,6 +15,21 @@
                 action="estate_property_action"
                 sequence="10"/>
         </menuitem>
+        <menuitem
+            id="real_estate_menu_settings"
+            name="Settings"
+            sequence="20">
+            <menuitem
+                id="real_estate_menu_property_type"
+                name="Property Types"
+                action="estate_property_type_action"
+                sequence="10"/>
+            <menuitem
+                id="real_estate_menu_property_tag"
+                name="Property Tags"
+                action="estate_property_tag_action"
+                sequence="20"/>
+        </menuitem>
     </menuitem>
 
 </odoo>
