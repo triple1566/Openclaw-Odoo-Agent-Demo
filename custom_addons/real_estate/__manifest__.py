@@ -1,9 +1,11 @@
 {
     'name':'Real Estate',
     'version':'1.0',
+    'sequence': 1,
     'author':'Leo Jeong',
     'summary':'Leos Odoo Real Estate',
     'category':'tools',
+    'images': ['static/description/icon.png'],
     'depends':['base', 'mail'],
     'data':[
         "security/ir.model.access.csv",
