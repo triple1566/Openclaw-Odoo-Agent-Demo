@@ -11,17 +11,18 @@ class OpenClawController(http.Controller):
         methods=["POST"],
         auth="user"
     )
-    #TODO: make openclaw shoot rpc req to tailscaled addr:
-    def openclaw_chat(messages):
+
+    def openclaw_chat(self,message):
+        print(message)
         claw_record = request.env['claw.chat'].search([('creator','=','admin')],limit=1)
         #curl addr: - meshed to openclaw server using tailscale
         response = requests.post(f"{claw_record.tailnet_addr}", 
                              headers={"Authorization": f"Bearer {claw_record.hook_token}"},
                              json={
-                                "message": str(messages),
+                                "message": f"For this request, use the ODOO tool under your TOOLS.md file, your job is to follow the request exactly once, and once only. DO NOT REPEAT IF IT FAILS. if it fails, report immediately by stating the json data you sent, and the json data returned to you, and the status code. The said request is: {message}",
                                 "name": "Odoo",
-                                "agentId": "hooks",
-                                "sessionKey": "hook:odoo",
+                                "agentId": "main",
+                                "sessionKey": "main",
                                 "wakeMode": "now",
                                 "deliver": True,
                                 "channel": "last",
@@ -38,7 +39,7 @@ class OpenClawController(http.Controller):
         methods=["POST"],
         auth="user"
     )
-    def openclaw_receiver(log):
+    def openclaw_receiver(self,log):
         claw_receiver = request.env['claw.receiver']
 
         record = claw_receiver.create({

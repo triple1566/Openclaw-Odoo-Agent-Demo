@@ -19,5 +19,6 @@
             "openclaw_chat/static/src/css/chat_panel.css",
         ],
     },
-    'application':True
+    'application':True,
+    'sequence':2
 }
