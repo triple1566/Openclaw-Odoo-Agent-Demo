@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_bss_student_student_user,bss.student student user,bss_student.model_bss_student,bss_student_access_right.group_student_user,1,0,0,0
+access_bss_attendance_student_user,bss.attendance student user,bss_student.model_bss_attendance,bss_student_access_right.group_student_user,1,0,0,0
+access_bss_student_student_admin,bss.student student admin,bss_student.model_bss_student,bss_student_access_right.group_student_admin,1,1,1,1
+access_bss_class_student_admin,bss.class student admin,bss_student.model_bss_class,bss_student_access_right.group_student_admin,1,1,1,1
+access_bss_subject_student_admin,bss.subject student admin,bss_student.model_bss_subject,bss_student_access_right.group_student_admin,1,1,1,1
+access_bss_attendance_student_admin,bss.attendance student admin,bss_student.model_bss_attendance,bss_student_access_right.group_student_admin,1,1,1,1

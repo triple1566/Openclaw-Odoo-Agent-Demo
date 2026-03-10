@@ -1,5 +1,5 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_bss_student,access_bss_student,model_bss_student,base.group_user,1,1,1,1
-access_bss_class,access_bss_class,model_bss_class,base.group_user,1,1,1,1
-access_bss_subject,access_bss_subject,model_bss_subject,base.group_user,1,1,1,1
-access_bss_attendance,access_bss_attendance,model_bss_attendance,base.group_user,1,1,1,1
+access_bss_student_manager,access_bss_student_manager,model_bss_student,base.group_system,1,1,1,1
+access_bss_class_manager,access_bss_class_manager,model_bss_class,base.group_system,1,1,1,1
+access_bss_subject_manager,access_bss_subject_manager,model_bss_subject,base.group_system,1,1,1,1
+access_bss_attendance_manager,access_bss_attendance_manager,model_bss_attendance,base.group_system,1,1,1,1

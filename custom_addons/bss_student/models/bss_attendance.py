@@ -25,9 +25,10 @@ class BssAttendance(models.Model):
     checkin_time = fields.Datetime(string='Check-in Time')
     checkout_time = fields.Datetime(string='Check-out Time')
 
-    @api.model
-    def create(self, vals):
+    @api.model_create_multi
+    def create(self, vals_list):
         """Auto-generate attendance number with format ATD/YYYY/MONTH/0001"""
-        if vals.get('attendance_number', _('New')) == _('New'):
-            vals['attendance_number'] = self.env['ir.sequence'].next_by_code('bss.attendance') or _('New')
-        return super(BssAttendance, self).create(vals)
+        for vals in vals_list:
+            if vals.get('attendance_number', _('New')) == _('New'):
+                vals['attendance_number'] = self.env['ir.sequence'].next_by_code('bss.attendance') or _('New')
+        return super(BssAttendance, self).create(vals_list)
