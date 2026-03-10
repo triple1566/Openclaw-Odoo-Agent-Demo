@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Attendance List View -->
+        <record id="view_bss_attendance_tree" model="ir.ui.view">
+            <field name="name">bss.attendance.tree</field>
+            <field name="model">bss.attendance</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="attendance_number"/>
+                    <field name="student_id"/>
+                    <field name="attendance_date"/>
+                    <field name="status"/>
+                    <field name="checkin_time"/>
+                    <field name="checkout_time"/>
+                </list>
+            </field>
+        </record>
+
+        <!-- Attendance Form View -->
+        <record id="view_bss_attendance_form" model="ir.ui.view">
+            <field name="name">bss.attendance.form</field>
+            <field name="model">bss.attendance</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="attendance_number" readonly="1"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="student_id"/>
+                                <field name="attendance_date"/>
+                                <field name="status"/>
+                            </group>
+                            <group>
+                                <field name="checkin_time"/>
+                                <field name="checkout_time"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Attendance Search View -->
+        <record id="view_bss_attendance_search" model="ir.ui.view">
+            <field name="name">bss.attendance.search</field>
+            <field name="model">bss.attendance</field>
+            <field name="arch" type="xml">
+                <search string="Search">
+                    <field name="student_id"/>
+                    <field name="attendance_number"/>
+                    <field name="attendance_date"/>
+                    <filter string="Present" name="present" domain="[('status', '=', 'present')]"/>
+                    <filter string="Absent" name="absent" domain="[('status', '=', 'absent')]"/>
+                    <filter string="Leave" name="leave" domain="[('status', '=', 'leave')]"/>
+                    <filter string="Today" name="today" domain="[('attendance_date', '=', context_today())]"/>
+                    <filter string="Student" name="group_student" context="{'group_by': 'student_id'}"/>
+                    <filter string="Status" name="group_status" context="{'group_by': 'status'}"/>
+                    <filter string="Date" name="group_date" context="{'group_by': 'attendance_date'}"/>
+                </search>
+            </field>
+        </record>
+
+        <!-- Attendance Action -->
+        <record id="action_bss_attendance" model="ir.actions.act_window">
+            <field name="name">Attendance</field>
+            <field name="res_model">bss.attendance</field>
+            <field name="view_mode">list,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create your first Attendance Record
+                </p>
+            </field>
+        </record>
+
+    </data>
+</odoo>

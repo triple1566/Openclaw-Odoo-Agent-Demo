@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Add Student fields to Partner Form -->
+        <record id="view_partner_form_student" model="ir.ui.view">
+            <field name="name">res.partner.form.student</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <field name="category_id" position="after">
+                    <field name="is_student"/>
+                    <field name="student_id" invisible="not is_student"/>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</odoo>

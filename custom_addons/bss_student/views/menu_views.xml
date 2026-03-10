@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Root Menu -->
+        <menuitem id="menu_bss_student_root"
+                  name="Student Management"
+                  sequence="10"/>
+
+        <!-- Students Menu -->
+        <menuitem id="menu_bss_student"
+                  name="Students"
+                  parent="menu_bss_student_root"
+                  action="action_bss_student"
+                  sequence="10"/>
+
+        <!-- Attendance Menu -->
+        <menuitem id="menu_bss_attendance"
+                  name="Attendance"
+                  parent="menu_bss_student_root"
+                  action="action_bss_attendance"
+                  sequence="20"/>
+
+        <!-- Configuration Menu -->
+        <menuitem id="menu_bss_configuration"
+                  name="Configuration"
+                  parent="menu_bss_student_root"
+                  sequence="100"/>
+
+        <!-- Classes Menu -->
+        <menuitem id="menu_bss_class"
+                  name="Classes"
+                  parent="menu_bss_configuration"
+                  action="action_bss_class"
+                  sequence="10"/>
+
+        <!-- Subjects Menu -->
+        <menuitem id="menu_bss_subject"
+                  name="Subjects"
+                  parent="menu_bss_configuration"
+                  action="action_bss_subject"
+                  sequence="20"/>
+
+    </data>
+</odoo>

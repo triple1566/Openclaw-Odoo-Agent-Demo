@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Class List View -->
+        <record id="view_bss_class_tree" model="ir.ui.view">
+            <field name="name">bss.class.tree</field>
+            <field name="model">bss.class</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="name"/>
+                    <field name="code"/>
+                </list>
+            </field>
+        </record>
+
+        <!-- Class Form View -->
+        <record id="view_bss_class_form" model="ir.ui.view">
+            <field name="name">bss.class.form</field>
+            <field name="model">bss.class</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="code"/>
+                        </group>
+                        <notebook>
+                            <page string="Subjects">
+                                <field name="subject_ids">
+                                    <list editable="bottom">
+                                        <field name="name"/>
+                                    </list>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Class Action -->
+        <record id="action_bss_class" model="ir.actions.act_window">
+            <field name="name">Classes</field>
+            <field name="res_model">bss.class</field>
+            <field name="view_mode">list,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create your first Class
+                </p>
+            </field>
+        </record>
+
+    </data>
+</odoo>

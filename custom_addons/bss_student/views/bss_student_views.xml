@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Student List View -->
+        <record id="view_bss_student_tree" model="ir.ui.view">
+            <field name="name">bss.student.tree</field>
+            <field name="model">bss.student</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="student_number"/>
+                    <field name="name"/>
+                    <field name="roll_number"/>
+                    <field name="class_id"/>
+                    <field name="gender"/>
+                    <field name="age"/>
+                    <field name="email"/>
+                    <field name="phone"/>
+                </list>
+            </field>
+        </record>
+
+        <!-- Student Form View -->
+        <record id="view_bss_student_form" model="ir.ui.view">
+            <field name="name">bss.student.form</field>
+            <field name="model">bss.student</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <field name="photo" widget="image" class="oe_avatar"/>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" placeholder="Student Name" required="1"/>
+                            </h1>
+                            <h3>
+                                <field name="student_number" readonly="1"/>
+                            </h3>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="roll_number"/>
+                                <field name="class_id"/>
+                                <field name="gender"/>
+                                <field name="dob"/>
+                                <field name="age"/>
+                            </group>
+                            <group>
+                                <field name="email" widget="email"/>
+                                <field name="phone" widget="phone"/>
+                                <field name="partner_id" readonly="1"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Subjects">
+                                <field name="subject_ids">
+                                    <list>
+                                        <field name="name"/>
+                                    </list>
+                                </field>
+                            </page>
+                            <page string="Attendance">
+                                <field name="attendance_ids">
+                                    <list>
+                                        <field name="attendance_number"/>
+                                        <field name="attendance_date"/>
+                                        <field name="status"/>
+                                        <field name="checkin_time"/>
+                                        <field name="checkout_time"/>
+                                    </list>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Student Search View -->
+        <record id="view_bss_student_search" model="ir.ui.view">
+            <field name="name">bss.student.search</field>
+            <field name="model">bss.student</field>
+            <field name="arch" type="xml">
+                <search string="Search">
+                    <field name="name"/>
+                    <field name="student_number"/>
+                    <field name="roll_number"/>
+                    <field name="class_id"/>
+                    <filter string="Male" name="male" domain="[('gender', '=', 'male')]"/>
+                    <filter string="Female" name="female" domain="[('gender', '=', 'female')]"/>
+                    <filter string="Class" name="group_class" context="{'group_by': 'class_id'}"/>
+                    <filter string="Gender" name="group_gender" context="{'group_by': 'gender'}"/>
+                </search>
+            </field>
+        </record>
+
+        <!-- Student Action -->
+        <record id="action_bss_student" model="ir.actions.act_window">
+            <field name="name">Students</field>
+            <field name="res_model">bss.student</field>
+            <field name="view_mode">list,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create your first Student
+                </p>
+            </field>
+        </record>
+
+    </data>
+</odoo>
