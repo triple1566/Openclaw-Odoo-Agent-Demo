@@ -8,7 +8,7 @@
     'data': [
         'security/student_security.xml',
         'security/ir.model.access.csv',
-        'security/student_record_rules.xml',
+        'security/student_record_rules.xml'
     ],
     'installable': True,
     'application': False,

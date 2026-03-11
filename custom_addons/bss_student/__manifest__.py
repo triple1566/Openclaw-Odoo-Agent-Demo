@@ -24,6 +24,7 @@
         'views/bss_subject_views.xml',
         'views/bss_attendance_views.xml',
         'views/res_partner_views.xml',
+        'views/res_users_views.xml',
         'views/menu_views.xml',
     ],
     'installable': True,

@@ -48,6 +48,7 @@
                                 <field name="email" widget="email"/>
                                 <field name="phone" widget="phone"/>
                                 <field name="partner_id" readonly="1"/>
+                                <field name="user_id" readonly="1"/>
                             </group>
                         </group>
                         <notebook>

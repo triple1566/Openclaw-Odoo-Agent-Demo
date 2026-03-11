@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields, api, _
+from odoo.fields import Command
 from odoo.exceptions import ValidationError
 from datetime import date
 
@@ -43,6 +44,7 @@ class BssStudent(models.Model):
         string='Attendance Records'
     )
     partner_id = fields.Many2one('res.partner', string='Related Contact', readonly=True)
+    user_id = fields.Many2one('res.users', string='Related User', readonly=True, copy=False)
 
     _sql_constraints = [
         ('roll_number_unique', 'UNIQUE(roll_number)', 'Roll number must be unique!')
@@ -62,13 +64,14 @@ class BssStudent(models.Model):
 
     @api.model_create_multi
     def create(self, vals_list):
-        """Auto-generate student number and create related partner"""
+        """Auto-generate student number and create related partner and user"""
         for vals in vals_list:
             if vals.get('student_number', _('New')) == _('New'):
                 vals['student_number'] = self.env['ir.sequence'].next_by_code('bss.student') or _('New')
 
         students = super(BssStudent, self).create(vals_list)
         students._create_or_update_partner()
+        students._create_or_link_user()
         return students
 
     def write(self, vals):
@@ -96,6 +99,50 @@ class BssStudent(models.Model):
                 # Create new partner
                 partner = self.env['res.partner'].create(partner_vals)
                 student.partner_id = partner.id
+
+    def _get_unique_login(self):
+        """Build a unique login for a student user."""
+        self.ensure_one()
+
+        base_login = (self.email or self.student_number or f'student_{self.id}' or '').strip().lower()
+        if not base_login:
+            base_login = f'student_{self.id}'
+
+        users = self.env['res.users'].sudo()
+        if not users.search_count([('login', '=', base_login)]):
+            return base_login
+
+        suffix = 1
+        while True:
+            candidate = f'{base_login}.{suffix}'
+            if not users.search_count([('login', '=', candidate)]):
+                return candidate
+            suffix += 1
+
+    def _create_or_link_user(self):
+        """Create or link res.users using the student's auto-created partner."""
+        users = self.env['res.users'].sudo().with_context(no_reset_password=True)
+        student_user_group = self.env.ref('bss_student_access_right.group_student_user', raise_if_not_found=False)
+        for student in self:
+            if not student.partner_id:
+                continue
+
+            existing_user = users.search([('partner_id', '=', student.partner_id.id)], limit=1)
+            if existing_user:
+                if student_user_group:
+                    existing_user.write({'group_ids': [Command.link(student_user_group.id)]})
+                student.user_id = existing_user.id
+                continue
+
+            user_vals = {
+                'name': student.name,
+                'login': student._get_unique_login(),
+                'partner_id': student.partner_id.id,
+            }
+            if student_user_group:
+                user_vals['group_ids'] = [Command.link(student_user_group.id)]
+            new_user = users.create(user_vals)
+            student.user_id = new_user.id
 
     @api.onchange('class_id')
     def _onchange_class_id(self):
