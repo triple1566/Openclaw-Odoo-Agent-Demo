@@ -1,0 +1,9 @@
+/* Exercise 1: Dashboard background colour */
+.o_dashboard {
+    background-color: #f0f2f5;
+
+    .o_dashboard_item {
+        /* keep cards aligned to the top of the flex row */
+        vertical-align: top;
+    }
+}

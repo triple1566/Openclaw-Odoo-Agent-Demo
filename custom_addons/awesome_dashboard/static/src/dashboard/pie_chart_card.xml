@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+
+    <!-- Exercise 9: PieChartCard — optional heading + PieChart. -->
+    <t t-name="awesome_dashboard.PieChartCard">
+        <div class="o_pie_chart_card text-center w-100">
+            <div t-if="props.title" class="text-muted small mb-2">
+                <t t-esc="props.title"/>
+            </div>
+            <PieChart data="props.data"/>
+        </div>
+    </t>
+
+</templates>

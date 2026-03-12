@@ -1,1 +1,1 @@
-python3 odoo-bin --config=odoo.conf -d odoo19_enterprise -u bss_student_access_right
+python3 odoo-bin --config=odoo.conf -d odoo19_enterprise
