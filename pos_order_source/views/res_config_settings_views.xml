@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="pos_order_source_settings" model="ir.ui.view">
+        <field name="name">pos.order.source.settings</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="point_of_sale.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//setting[@id='is_restaurant']" position="after">
+                <setting id="pos_order_source_setting"
+                         string="Order Source Button"
+                         help="Show Online / Offline order source button in POS">
+                    <field name="show_order_source_button_setting"/>
+                </setting>
+            </xpath>
+        </field>
+    </record>
+</odoo>
