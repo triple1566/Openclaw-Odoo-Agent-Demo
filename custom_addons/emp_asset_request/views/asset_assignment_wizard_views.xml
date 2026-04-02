@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_emp_asset_assignment_wizard_form" model="ir.ui.view">
+            <field name="name">emp.asset.assignment.wizard.form</field>
+            <field name="model">emp.asset.assignment.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Assign Assets">
+                    <group>
+                        <field name="request_id"/>
+                        <field name="request_asset_model_id"/>
+                        <field name="requested_quantity"/>
+                    </group>
+                    <group>
+                        <field name="asset_ids" widget="many2many_tags" options="{'no_create': True}"/>
+                    </group>
+                    <footer>
+                        <button name="action_confirm_assignment" string="Confirm Assignment" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

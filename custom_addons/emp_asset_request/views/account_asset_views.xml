@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_account_asset_form_inherit_emp_assignment" model="ir.ui.view">
+            <field name="name">account.asset.form.inherit.emp.assignment</field>
+            <field name="model">account.asset</field>
+            <field name="inherit_id" ref="account_asset.view_account_asset_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//sheet/group" position="inside">
+                    <group string="Employee Assignment" invisible="state == 'model'">
+                        <field name="emp_asset_availability_state"/>
+                        <field name="emp_assigned_employee_id" readonly="1"/>
+                        <field name="emp_assigned_request_id" readonly="1"/>
+                        <field name="emp_assignment_date" readonly="1"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
