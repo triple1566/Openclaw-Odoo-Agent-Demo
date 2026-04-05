@@ -1,0 +1,1 @@
+from . import rank_configuration, res_partner

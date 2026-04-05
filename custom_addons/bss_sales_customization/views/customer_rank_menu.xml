@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="model_name_menu"
+        name="Customer Rank Config"
+        sequence="1">
+
+        <menuitem
+            id="rank_configuration_menu"
+            name="Ranks List"
+            action="window_action_rank_configuration"
+            sequence="1"/>
+
+    </menuitem>
+
+</odoo>

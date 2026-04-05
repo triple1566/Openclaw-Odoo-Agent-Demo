@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="rank_configuration_view_list" model="ir.ui.view">
+        <field name="name">rank_configuration.view.list</field>
+        <field name="model">rank.configuration</field>
+        <field name="arch" type="xml">
+            <list string="Rank List">
+                <field name="id"/>
+                <field name="rank_name"/>
+                <field name="rank_code"/>
+                <field name="status"/>
+                <field name="default_rank"/>
+                <field name="discount_percentage"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="rank_configuration_view_form" model="ir.ui.view">
+        <field name="name">rank_configuration.view.form</field>
+        <field name="model">rank.configuration</field>
+        <field name="arch" type="xml">
+            <form string="Rank Form">
+                <sheet>
+                    <group string="Specifics">
+                        <field name="id"/>
+                        <field name="rank_name"/>
+                        <field name="rank_code"/>
+                        <field name="status"/>
+                        <field name="default_rank"/>
+                        <field name="discount_percentage"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="window_action_rank_configuration" model="ir.actions.act_window">
+        <field name="name">Rank Config</field>
+        <field name="res_model">rank.configuration</field>
+        <field name="view_mode">list,form</field>
+        <field name="view_id" ref="rank_configuration_view_list"/>
+    </record>
+
+</odoo>
