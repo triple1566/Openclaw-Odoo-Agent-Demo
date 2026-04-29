@@ -11,6 +11,12 @@
             action="window_action_rank_configuration"
             sequence="1"/>
 
+        <menuitem
+            id="sale_approval_configuration_menu"
+            name="Approval Configuration"
+            action="action_sale_approval_configuration"
+            sequence="2"/>
+
     </menuitem>
 
 </odoo>

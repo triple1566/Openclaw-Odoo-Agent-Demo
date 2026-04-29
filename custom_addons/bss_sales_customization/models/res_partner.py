@@ -13,7 +13,7 @@ class res_partner(models.Model):
 
         # search for a default rank
         default_rank = self.env['rank.configuration'].search(
-            [('default_rank','=', True)],
+            [('default_rank','=', True), ('status', '=', 'active')],
             limit=1
         )
 
@@ -21,6 +21,7 @@ class res_partner(models.Model):
         if not default_rank:
             raise ValidationError("No default rank is set. Set a default rank first, then try again.")
         
-        record.rank_code = default_rank.rank_code
+        if not record.rank_code:
+            record.rank_code = default_rank.id
 
         return record

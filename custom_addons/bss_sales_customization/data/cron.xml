@@ -1,0 +1,11 @@
+<odoo>
+    <record id="cron_update_customer_rank" model="ir.cron">
+        <field name="name">Update Customer Rank Daily</field>
+        <field name="model_id" ref="model_rank_configuration"/>
+        <field name="state">code</field>
+        <field name="code">model._cron_update_customer_rank()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="active">True</field>
+    </record>
+</odoo>

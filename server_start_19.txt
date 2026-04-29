@@ -1,1 +1,1 @@
-python3 odoo-bin --config=odoo.conf -d odoo19_enterprise -u bss_sales_customization
+python3 odoo-bin --config=odoo.conf -d odoo19_enterprise -u bss_sales_purchase_approval_excel

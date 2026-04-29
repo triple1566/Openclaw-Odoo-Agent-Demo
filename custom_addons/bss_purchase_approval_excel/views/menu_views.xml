@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem
+        id="menu_purchase_approval_excel_root"
+        name="PO Approval and Product Excel"
+        parent="purchase.menu_purchase_root"
+        sequence="90"
+        groups="purchase.group_purchase_user"
+    />
+
+    <menuitem
+        id="menu_purchase_approval_configuration"
+        name="Approval Configuration"
+        parent="menu_purchase_approval_excel_root"
+        action="action_purchase_approval_configuration"
+        sequence="10"
+        groups="purchase.group_purchase_manager"
+    />
+
+    <menuitem
+        id="menu_rfq_waiting_manager_approval"
+        name="RFQs Waiting Manager Approval"
+        parent="menu_purchase_approval_excel_root"
+        action="action_rfq_waiting_manager_approval"
+        sequence="15"
+        groups="bss_purchase_approval_excel.group_purchase_manager"
+    />
+
+    <menuitem
+        id="menu_rfq_waiting_director_approval"
+        name="RFQs Waiting Director Approval"
+        parent="menu_purchase_approval_excel_root"
+        action="action_rfq_waiting_director_approval"
+        sequence="16"
+        groups="bss_purchase_approval_excel.group_purchase_director"
+    />
+
+    <menuitem
+        id="menu_product_excel_import"
+        name="Import Products"
+        parent="menu_purchase_approval_excel_root"
+        action="action_product_excel_import_wizard"
+        sequence="20"
+        groups="purchase.group_purchase_manager"
+    />
+
+    <menuitem
+        id="menu_product_excel_export"
+        name="Export Products"
+        parent="menu_purchase_approval_excel_root"
+        action="action_product_excel_export_wizard"
+        sequence="30"
+        groups="purchase.group_purchase_user"
+    />
+</odoo>

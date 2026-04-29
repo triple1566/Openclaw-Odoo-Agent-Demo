@@ -6,7 +6,6 @@
         <field name="model">rank.configuration</field>
         <field name="arch" type="xml">
             <list string="Rank List">
-                <field name="id"/>
                 <field name="rank_name"/>
                 <field name="rank_code"/>
                 <field name="status"/>
@@ -23,13 +22,22 @@
             <form string="Rank Form">
                 <sheet>
                     <group string="Specifics">
-                        <field name="id"/>
                         <field name="rank_name"/>
                         <field name="rank_code"/>
                         <field name="status"/>
                         <field name="default_rank"/>
                         <field name="discount_percentage"/>
                     </group>
+                    <notebook>
+                        <page string="Sales Thresholds">
+                            <field name="threshold_line_ids">
+                                <list editable="bottom" string="Threshold Lines">
+                                    <field name="from_amount"/>
+                                    <field name="to_amount"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
                 </sheet>
             </form>
         </field>

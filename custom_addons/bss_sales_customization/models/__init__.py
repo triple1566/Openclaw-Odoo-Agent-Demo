@@ -1,1 +1,1 @@
-from . import rank_configuration, res_partner
+from . import rank_configuration, res_partner, sale_order, sale_approval_configuration

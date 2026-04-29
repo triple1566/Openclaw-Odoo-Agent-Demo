@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="ir_cron_po_approval_reminder" model="ir.cron">
+        <field name="name">PO Approval Reminder (3 Days)</field>
+        <field name="model_id" ref="purchase.model_purchase_order"/>
+        <field name="state">code</field>
+        <field name="code">model._cron_send_approval_reminders()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="active" eval="True"/>
+    </record>
+
+    <record id="ir_cron_mail_cleanup" model="ir.cron">
+        <field name="name">Mail Record Cleanup (Orphaned/Failed)</field>
+        <field name="model_id" ref="purchase.model_purchase_order"/>
+        <field name="state">code</field>
+        <field name="code">model._cron_cleanup_mail_records()</field>
+        <field name="interval_number">6</field>
+        <field name="interval_type">hours</field>
+        <field name="active" eval="True"/>
+    </record>
+</odoo>

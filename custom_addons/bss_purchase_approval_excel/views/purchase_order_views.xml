@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_rfq_waiting_manager_approval" model="ir.actions.act_window">
+        <field name="name">RFQs Waiting Manager Approval</field>
+        <field name="res_model">purchase.order</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[("approval_state", "=", "to_approve"), ("approval_role", "=", "manager")]</field>
+    </record>
+
+    <record id="action_rfq_waiting_director_approval" model="ir.actions.act_window">
+        <field name="name">RFQs Waiting Director Approval</field>
+        <field name="res_model">purchase.order</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[("approval_state", "=", "to_approve"), ("approval_role", "=", "director")]</field>
+    </record>
+
+    <record id="view_purchase_order_form_inherit_approval" model="ir.ui.view">
+        <field name="name">purchase.order.form.inherit.approval</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="attributes">
+                <attribute name="readonly">approval_state == 'to_approve'</attribute>
+            </xpath>
+
+            <xpath expr="//notebook" position="attributes">
+                <attribute name="readonly">approval_state == 'to_approve'</attribute>
+            </xpath>
+
+            <xpath expr="//header" position="inside">
+                <button
+                    name="action_submit_for_approval"
+                    type="object"
+                    string="Submit For Approval"
+                    class="oe_highlight"
+                    groups="bss_purchase_approval_excel.group_purchase_manager"
+                    invisible="approval_state != 'draft'"
+                />
+                <button
+                    name="action_mark_approved"
+                    type="object"
+                    string="Approve"
+                    class="btn-primary"
+                    groups="bss_purchase_approval_excel.group_purchase_manager"
+                    invisible="approval_state != 'to_approve' or approver_id != uid"
+                />
+                <button
+                    name="action_mark_rejected"
+                    type="object"
+                    string="Reject"
+                    class="btn-secondary"
+                    groups="bss_purchase_approval_excel.group_purchase_manager"
+                    invisible="approval_state != 'to_approve' or approver_id != uid"
+                />
+                <button
+                    name="action_reset_to_draft"
+                    type="object"
+                    string="Reset to Draft"
+                    groups="bss_purchase_approval_excel.group_purchase_manager"
+                    invisible="approval_state == 'draft'"
+                />
+                <field
+                    name="approval_state"
+                    widget="statusbar"
+                    statusbar_visible="draft,to_approve,approved,rejected"
+                />
+            </xpath>
+
+            <xpath expr="//notebook" position="inside">
+                <page string="Customer Information">
+                    <group>
+                        <field name="partner_id" readonly="1"/>
+                        <field name="vendor_address" readonly="1"/>
+                        <field name="vendor_phone" readonly="1"/>
+                    </group>
+                </page>
+
+                <page string="Approval Information">
+                    <group>
+                        <field name="requester_id" readonly="1"/>
+                        <field name="requested_datetime" readonly="1"/>
+                        <field name="approver_id" readonly="1"/>
+                        <field name="approved_datetime" readonly="1"/>
+                    </group>
+                </page>
+
+                <page string="Approvers">
+                    <field name="approver_line_ids">
+                        <list editable="bottom" string="Approvers">
+                            <field name="sequence"/>
+                            <field name="user_id"/>
+                            <field name="state"/>
+                            <field name="action_date"/>
+                        </list>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_order_form_inherit_bss_approval" model="ir.ui.view">
+        <field name="name">sale.order.form.inherit.bss.approval</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button
+                    name="action_reset_to_draft"
+                    type="object"
+                    string="Reset to Draft"
+                    class="btn-secondary"
+                    groups="sales_team.group_sale_manager"
+                />
+                <field name="approval_state" widget="statusbar" statusbar_visible="pending,approved,refused"/>
+            </xpath>
+
+            <xpath expr="//notebook" position="inside">
+                <page string="Approvers">
+                    <field name="approval_line_ids" readonly="state in ['sale', 'done', 'cancel']">
+                        <list editable="bottom" string="Approvers">
+                            <field name="sequence"/>
+                            <field name="user_id"/>
+                            <field name="state"/>
+                            <field name="action_date"/>
+                            <button
+                                name="action_approve"
+                                type="object"
+                                string="Approve"
+                                class="btn-primary"
+                                invisible="state != 'pending'"
+                            />
+                            <button
+                                name="action_refuse"
+                                type="object"
+                                string="Refuse"
+                                class="btn-secondary"
+                                invisible="state != 'pending'"
+                            />
+                        </list>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>
