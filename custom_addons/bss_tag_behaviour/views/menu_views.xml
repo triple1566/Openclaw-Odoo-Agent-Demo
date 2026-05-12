@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem
+        id="menu_ta_behaviour_root"
+        name="Tag Behaviour"
+        sequence="10"
+    />
+</odoo>

@@ -18,6 +18,15 @@
     />
 
     <menuitem
+        id="menu_approval_role_assignment"
+        name="Approval Role Assignments"
+        parent="menu_purchase_approval_excel_root"
+        action="action_approval_role_assignment"
+        sequence="12"
+        groups="purchase.group_purchase_manager"
+    />
+
+    <menuitem
         id="menu_rfq_waiting_manager_approval"
         name="RFQs Waiting Manager Approval"
         parent="menu_purchase_approval_excel_root"

@@ -41,7 +41,7 @@
                     type="object"
                     string="Approve"
                     class="btn-primary"
-                    groups="bss_purchase_approval_excel.group_purchase_manager"
+                    groups="bss_purchase_approval_excel.group_purchase_manager,bss_purchase_approval_excel.group_purchase_director"
                     invisible="approval_state != 'to_approve' or approver_id != uid"
                 />
                 <button
@@ -49,7 +49,7 @@
                     type="object"
                     string="Reject"
                     class="btn-secondary"
-                    groups="bss_purchase_approval_excel.group_purchase_manager"
+                    groups="bss_purchase_approval_excel.group_purchase_manager,bss_purchase_approval_excel.group_purchase_director"
                     invisible="approval_state != 'to_approve' or approver_id != uid"
                 />
                 <button
@@ -88,6 +88,7 @@
                     <field name="approver_line_ids">
                         <list editable="bottom" string="Approvers">
                             <field name="sequence"/>
+                            <field name="approval_role"/>
                             <field name="user_id"/>
                             <field name="state"/>
                             <field name="action_date"/>

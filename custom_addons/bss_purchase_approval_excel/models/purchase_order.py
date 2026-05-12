@@ -76,6 +76,42 @@ class PurchaseOrder(models.Model):
             "director": "bss_purchase_approval_excel.group_purchase_director",
         }.get(approval_role)
 
+    def _get_approver_user_by_role(self, approval_role):
+        group_xmlid = self._get_approver_group_xmlid(approval_role)
+        if not group_xmlid:
+            raise UserError(_("Unsupported approval role: %s") % approval_role)
+
+        group = self.env.ref(group_xmlid, raise_if_not_found=False)
+        if not group:
+            raise UserError(_("Approval group not found for role: %s") % approval_role)
+
+        user = self.env["res.users"].search(
+            [
+                ("active", "=", True),
+                ("share", "=", False),
+                ("group_ids", "in", group.id),
+            ],
+            order="id asc",
+            limit=1,
+        )
+        if not user:
+            raise UserError(
+                _(
+                    "No active user found in %(group)s for %(role)s approval.",
+                    group=group.display_name,
+                    role=approval_role,
+                )
+            )
+        if not user.partner_id.email:
+            raise UserError(
+                _(
+                    "Approver %(user)s for %(role)s has no email address configured.",
+                    user=user.display_name,
+                    role=approval_role,
+                )
+            )
+        return user
+
     def _get_approver_user_from_configuration(self, config):
         group_xmlid = self._get_approver_group_xmlid(config.approval_role)
         if not group_xmlid:
@@ -258,6 +294,43 @@ class PurchaseOrder(models.Model):
             if order.approver_id != self.env.user:
                 raise AccessError(_("Only the assigned approver can perform this action."))
 
+    def _set_approver_line_state(self, user, state, approval_role=None, sequence=None):
+        self.ensure_one()
+        if not user:
+            return
+
+        approver_line = self.approver_line_ids.filtered(
+            lambda line: line.user_id.id == user.id
+            and (not approval_role or line.approval_role == approval_role)
+        )[:1]
+
+        if not approver_line:
+            create_vals = {
+                "order_id": self.id,
+                "user_id": user.id,
+                "state": state,
+            }
+            if approval_role:
+                create_vals["approval_role"] = approval_role
+            if sequence is not None:
+                create_vals["sequence"] = sequence
+            if state in ("approved", "refused"):
+                create_vals["action_date"] = fields.Datetime.now()
+            approver_line = self.env["purchase.order.approver"].sudo().create(create_vals)
+            return approver_line
+
+        values = {"state": state}
+        if approval_role:
+            values["approval_role"] = approval_role
+        if sequence is not None:
+            values["sequence"] = sequence
+        if state in ("approved", "refused"):
+            values["action_date"] = fields.Datetime.now()
+        else:
+            values["action_date"] = False
+        approver_line.sudo().write(values)
+        return approver_line
+
     def _validate_vendor_contact_info(self):
         for order in self:
             partner = order.partner_id
@@ -271,38 +344,97 @@ class PurchaseOrder(models.Model):
     def action_submit_for_approval(self):
         self._check_manager_group()
         for order in self:
-            config = order._get_approval_configuration_for_amount(order.amount_total)
-            approver = order._get_approver_user_from_configuration(config)
+            manager_user = order._get_approver_user_by_role("manager")
+            director_user = order._get_approver_user_by_role("director")
             order.write(
                 {
                     "approval_state": "to_approve",
-                    "approval_role": config.approval_role,
+                    "approval_role": "manager",
                     "requester_id": self.env.user.id,
                     "requested_datetime": fields.Datetime.now(),
-                    "approver_id": approver.id,
+                    "approver_id": manager_user.id,
                     "approved_datetime": False,
                 }
             )
-            order._send_approval_email(approver)
+            order._set_approver_line_state(
+                manager_user,
+                "pending",
+                approval_role="manager",
+                sequence=10,
+            )
+            order._set_approver_line_state(
+                director_user,
+                "pending",
+                approval_role="director",
+                sequence=20,
+            )
+            order._send_approval_email(manager_user)
             order._log_approval_action("submitted")
 
     def action_mark_approved(self):
         self._check_current_user_is_approver()
         for order in self:
-            order.write(
-                {
-                    "approval_state": "approved",
-                    "approval_role": False,
-                    "approver_id": self.env.user.id,
-                    "approved_datetime": fields.Datetime.now(),
-                }
-            )
-            order._log_approval_action("approved")
-            order._notify_requester("approved")
+            current_role = order.approval_role
+            current_approver = order.approver_id
+
+            if current_role == "manager":
+                order._set_approver_line_state(
+                    current_approver,
+                    "approved",
+                    approval_role="manager",
+                    sequence=10,
+                )
+                director_line = order.approver_line_ids.filtered(
+                    lambda line: line.approval_role == "director"
+                )[:1]
+                director_user = director_line.user_id or order._get_approver_user_by_role("director")
+                order._set_approver_line_state(
+                    director_user,
+                    "pending",
+                    approval_role="director",
+                    sequence=20,
+                )
+                order.write(
+                    {
+                        "approval_state": "to_approve",
+                        "approval_role": "director",
+                        "approver_id": director_user.id,
+                        "approved_datetime": False,
+                    }
+                )
+                order._send_approval_email(director_user)
+                order.message_post(
+                    body=_(
+                        "Manager approved. Forwarded to Director %(director)s for final approval.",
+                        director=director_user.display_name,
+                    )
+                )
+            else:
+                order._set_approver_line_state(
+                    current_approver,
+                    "approved",
+                    approval_role="director",
+                    sequence=20,
+                )
+                order.write(
+                    {
+                        "approval_state": "approved",
+                        "approval_role": False,
+                        "approver_id": self.env.user.id,
+                        "approved_datetime": fields.Datetime.now(),
+                    }
+                )
+                order._log_approval_action("approved")
+                order._notify_requester("approved")
 
     def action_mark_rejected(self):
         self._check_current_user_is_approver()
         for order in self:
+            order._set_approver_line_state(
+                order.approver_id,
+                "refused",
+                approval_role=order.approval_role,
+            )
             order.write(
                 {
                     "approval_state": "rejected",
@@ -405,6 +537,11 @@ class PurchaseOrderApprover(models.Model):
 
     order_id = fields.Many2one("purchase.order", required=True, ondelete="cascade")
     user_id = fields.Many2one("res.users", string="Approver", required=True)
+    approval_role = fields.Selection(
+        [("manager", "Manager"), ("director", "Director")],
+        string="Role",
+        copy=False,
+    )
     sequence = fields.Integer(default=10)
     state = fields.Selection(
         [

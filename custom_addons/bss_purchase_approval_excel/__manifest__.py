@@ -11,6 +11,7 @@
         "security/ir.model.access.csv",
         "data/sequence_data.xml",
         "data/cron_data.xml",
+        "views/approval_role_assignment_views.xml",
         "views/purchase_approval_configuration_views.xml",
         "views/purchase_order_views.xml",
         "views/product_template_views.xml",

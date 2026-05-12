@@ -8,12 +8,30 @@
             <xpath expr="//list" position="inside">
                 <header>
                     <button
+                        name="action_import_product_template"
+                        type="object"
+                        string="Import Products"
+                        class="btn-primary"
+                        groups="purchase.group_purchase_manager"
+                    />
+                    <button
                         name="action_export_product_template"
                         type="object"
-                        string="Export Template"
+                        string="Export Products"
                         class="btn-secondary"
                     />
                 </header>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="product_template_form_view_uom_po" model="ir.ui.view">
+        <field name="name">product.template.form.uom.po</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='uom_id']" position="after">
+                <field name="uom_po_id" />
             </xpath>
         </field>
     </record>

@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_bss_tag_behaviour_apply_tag_wizard,bss.tag.behaviour.apply.tag.wizard,model_bss_tag_behaviour_apply_tag_wizard,base.group_user,1,1,1,1

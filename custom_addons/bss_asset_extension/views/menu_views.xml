@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem
+        id="menu_bss_asset_extension_root"
+        name="Asset Extension"
+        sequence="10"
+    />
+</odoo>

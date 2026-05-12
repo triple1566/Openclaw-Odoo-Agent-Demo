@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_bss_apply_tag_wizard_form" model="ir.ui.view">
+        <field name="name">bss.tag.behaviour.apply.tag.wizard.form</field>
+        <field name="model">bss.tag.behaviour.apply.tag.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Apply Tag">
+                <sheet>
+                    <group>
+                        <field name="active_model" invisible="1"/>
+                        <field name="tag_ids" widget="many2many_tags" options="{'no_quick_create': True, 'no_create_edit': True}"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_apply_tags" type="object" string="Apply" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_apply_tag_to_templates" model="ir.actions.server">
+        <field name="name">Apply Tag</field>
+        <field name="model_id" ref="product.model_product_template"/>
+        <field name="binding_model_id" ref="product.model_product_template"/>
+        <field name="state">code</field>
+        <field name="code">action = records._action_open_apply_tag_wizard()</field>
+    </record>
+
+    <record id="action_apply_tag_to_variants" model="ir.actions.server">
+        <field name="name">Apply Tag</field>
+        <field name="model_id" ref="product.model_product_product"/>
+        <field name="binding_model_id" ref="product.model_product_product"/>
+        <field name="state">code</field>
+        <field name="code">action = records._action_open_apply_tag_wizard()</field>
+    </record>
+</odoo>
