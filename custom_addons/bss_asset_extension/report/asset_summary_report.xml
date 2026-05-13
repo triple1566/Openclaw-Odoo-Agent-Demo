@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="action_report_asset_summary" model="ir.actions.report">
+            <field name="name">Asset Summary Report</field>
+            <field name="model">account.asset</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">bss_asset_extension.report_asset_summary_document</field>
+            <field name="report_file">bss_asset_extension.report_asset_summary_document</field>
+            <field name="binding_model_id" ref="account_asset.model_account_asset"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <template id="report_asset_summary_document">
+            <t t-call="web.basic_layout">
+                <t t-set="assets" t-value="docs.sorted(key=lambda a: ((a.branch_name or ''), (a.name or '')))"/>
+                <div class="page">
+                    <h3>Asset Summary Report</h3>
+                    <table class="table table-sm" style="width: 100%; border-collapse: collapse;">
+                        <thead>
+                            <tr>
+                                <th style="text-align: left;">Asset Name</th>
+                                <th style="text-align: left;">Branch</th>
+                                <th style="text-align: right;">Gross Value</th>
+                                <th style="text-align: right;">Residual Value</th>
+                                <th style="text-align: left;">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-set="current_branch" t-value="None"/>
+                            <t t-foreach="assets" t-as="asset">
+                                <t t-if="asset.branch_name != current_branch">
+                                    <tr>
+                                        <td colspan="5" style="font-weight: bold; padding-top: 12px;">
+                                            Branch: <t t-esc="asset.branch_name or 'Unassigned'"/>
+                                        </td>
+                                    </tr>
+                                    <t t-set="current_branch" t-value="asset.branch_name"/>
+                                </t>
+                                <tr>
+                                    <td><t t-esc="asset.name"/></td>
+                                    <td><t t-esc="asset.branch_name or 'Unassigned'"/></td>
+                                    <td style="text-align: right;"><t t-esc="asset.original_value"/></td>
+                                    <td style="text-align: right;"><t t-esc="asset.value_residual"/></td>
+                                    <td><t t-esc="dict(asset._fields['state'].selection).get(asset.state, asset.state)"/></td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>

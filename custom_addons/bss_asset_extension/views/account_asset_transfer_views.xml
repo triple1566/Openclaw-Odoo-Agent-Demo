@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_account_asset_form_inherit_bss_transfer" model="ir.ui.view">
+            <field name="name">account.asset.form.inherit.bss.transfer</field>
+            <field name="model">account.asset</field>
+            <field name="inherit_id" ref="account_asset.view_account_asset_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//header/field[@name='state']" position="before">
+                    <button name="action_open_transfer_wizard"
+                            type="object"
+                            string="Transfer Branch"
+                            class="oe_highlight"
+                            invisible="state in ['model', 'close', 'cancelled']"/>
+                </xpath>
+                <xpath expr="//div[@name='button_box']" position="inside">
+                    <button name="action_view_transfer_history"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-exchange"
+                            invisible="transfer_count == 0">
+                        <field name="transfer_count" widget="statinfo" string="Transfers"/>
+                    </button>
+                </xpath>
+                <xpath expr="//page[@name='main_page']" position="after">
+                    <page string="Branch Transfer" name="branch_transfer">
+                        <group>
+                            <group string="Current Branch">
+                                <field name="branch_name" placeholder="e.g. Main Branch"/>
+                                <field name="transfer_state"/>
+                                <field name="last_transfer_date" readonly="1"/>
+                            </group>
+                            <group string="Transfer Summary">
+                                <field name="transfer_count" readonly="1"/>
+                            </group>
+                        </group>
+                        <separator string="Transfer history is available from the Transfers button above."/>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_account_asset_tree_inherit_bss_transfer" model="ir.ui.view">
+            <field name="name">account.asset.list.inherit.bss.transfer</field>
+            <field name="model">account.asset</field>
+            <field name="inherit_id" ref="account_asset.view_account_asset_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//list/field[@name='name']" position="after">
+                    <field name="branch_name" optional="show"/>
+                    <field name="transfer_state" optional="show"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
