@@ -46,7 +46,7 @@
             <field name="inherit_id" ref="account_asset.view_account_asset_tree"/>
             <field name="arch" type="xml">
                 <xpath expr="//list/field[@name='name']" position="after">
-                    <field name="branch_name" optional="show"/>
+                    <field name="branch_name"/>
                     <field name="transfer_state" optional="show"/>
                 </xpath>
             </field>

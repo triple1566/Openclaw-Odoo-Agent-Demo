@@ -10,5 +10,4 @@ class BssAssetTransferLog(models.Model):
     from_branch = fields.Char(string='From Branch')
     to_branch = fields.Char(string='To Branch', required=True)
     transfer_date = fields.Date(default=fields.Date.context_today, required=True)
-    user_id = fields.Many2one('res.users', string='Transferred By', default=lambda self: self.env.user, required=True)
     note = fields.Text()

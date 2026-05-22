@@ -5,7 +5,7 @@
     "category": "Custom",
     "author": "BSS",
     "license": "LGPL-3",
-    "depends": ["base","mail","account_asset", "product", "stock"],
+    "depends": ["base","mail","account_asset", "product", "stock",],
     "data": [
         "security/ir.model.access.csv",
         "data/account_asset_cron.xml",

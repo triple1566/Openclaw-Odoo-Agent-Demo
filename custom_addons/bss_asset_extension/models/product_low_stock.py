@@ -3,23 +3,19 @@ from odoo import _, fields, models
 
 class ProductTemplate(models.Model):
     _inherit = 'product.template'
-
-    low_stock_min_qty = fields.Float(
-        string='Minimum Stock Level',
-        default=0.0,
-        help='Daily alert will trigger when the available quantity is at or below this level.',
-    )
     low_stock_alert_sent = fields.Boolean(
         string='Low Stock Alert Sent',
         default=False,
         copy=False,
     )
 
+    #inventory low stock alert cron job
     def _cron_low_stock_alert(self):
+        threshold = 10.0
+
         products = self.with_context(active_test=False).search(
             [
                 ('type', '!=', 'service'),
-                ('low_stock_min_qty', '>', 0.0),
             ]
         )
         if not products:
@@ -29,7 +25,7 @@ class ProductTemplate(models.Model):
 
         for product in products:
             qty = product.qty_available
-            if qty <= product.low_stock_min_qty:
+            if qty <= threshold:
                 if not product.low_stock_alert_sent:
                     product.message_post(
                         body=_(
@@ -37,7 +33,7 @@ class ProductTemplate(models.Model):
                         ) % {
                             'product': product.display_name,
                             'qty': qty,
-                            'min_qty': product.low_stock_min_qty,
+                            'min_qty': threshold,
                         },
                         partner_ids=stock_manager_partners.ids,
                     )
