@@ -11,6 +11,7 @@
                             <field name="asset_id"/>
                             <field name="from_branch" readonly="1"/>
                             <field name="to_branch"/>
+                            <field name="transfer_account_id"/>
                             <field name="transfer_date"/>
                             <field name="note"/>
                         </group>

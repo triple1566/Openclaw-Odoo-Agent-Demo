@@ -109,3 +109,10 @@ class Account_Asset(models.Model):
             'domain': [('asset_id', '=', self.id)],
             'context': {'default_asset_id': self.id},
         }
+
+    def set_to_running(self):
+        for asset in self:
+            broken_moves = asset.depreciation_move_ids.filtered(lambda move: not move.asset_depreciation_beginning_date)
+            for move in broken_moves:
+                move.asset_depreciation_beginning_date = move.date or asset.prorata_date or fields.Date.today()
+        return super().set_to_running()

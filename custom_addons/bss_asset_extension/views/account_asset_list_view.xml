@@ -11,9 +11,9 @@
                     <field name="depreciation_countdown" optional="show"/>
                     <field name="alerted" optional="show"/>
                     <field name='transfer_count'/>
-                    <field name='depreciation_flag_count'/>
+                    <!--<field name='depreciation_flag_count'/>
                     <field name='accumulated_depreciation'/>
-                    <field name='residual_value'/>
+                    <field name='residual_value'/>-->
                 </xpath>
             </field>
         </record>
