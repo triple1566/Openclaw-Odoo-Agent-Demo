@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_bss_expense_category_user,bss.expense.category user,model_bss_expense_category,account.group_account_user,1,0,0,0
+access_bss_expense_category_readonly,bss.expense.category readonly,model_bss_expense_category,account.group_account_readonly,1,0,0,0
+access_bss_expense_category_manager,bss.expense.category manager,model_bss_expense_category,account.group_account_manager,1,1,1,1

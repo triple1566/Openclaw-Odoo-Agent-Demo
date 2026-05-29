@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_account_move_tree_inherit_bss_vendor_bills" model="ir.ui.view">
+            <field name="name">account.move.tree.inherit.bss.vendor.bills</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="expense_category" string="Expense Category" optional="show"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_account_move_form_inherit_bss_vendor_bills" model="ir.ui.view">
+            <field name="name">account.move.form.inherit.bss.vendor.bills</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='journal_id']" position="after">
+                    <field name="expense_category" string="Expense Category"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_move_line_tree_inherit_expense_category" model="ir.ui.view">
+            <field name="name">account.move.line.list.inherit.bss.vendor.bills.expense</field>
+            <field name="model">account.move.line</field>
+            <field name="inherit_id" ref="account.view_move_line_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="expense_category_name" string="Expense Category"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

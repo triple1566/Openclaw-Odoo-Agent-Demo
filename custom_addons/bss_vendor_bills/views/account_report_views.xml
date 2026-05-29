@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="account_report_form_inherit_bss_vendor_bills" model="ir.ui.view">
+            <field name="name">account.report.form.inherit.bss.vendor.bills</field>
+            <field name="model">account.report</field>
+            <field name="inherit_id" ref="account_reports.account_report_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='filter_aml_ir_filters']" position="after">
+                    <field name="expense_category_ids" widget="many2many_tags" options="{'no_quick_create': True}"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

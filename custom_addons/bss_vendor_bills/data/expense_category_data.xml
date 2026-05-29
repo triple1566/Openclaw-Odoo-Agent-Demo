@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="expense_category_internal" model="bss.expense.category">
+        <field name="name">Internal</field>
+        <field name="code">INTERNAL</field>
+    </record>
+    <record id="expense_category_external" model="bss.expense.category">
+        <field name="name">External</field>
+        <field name="code">EXTERNAL</field>
+    </record>
+    <record id="expense_category_export" model="bss.expense.category">
+        <field name="name">Export</field>
+        <field name="code">EXPORT</field>
+    </record>
+    <record id="expense_category_domestic" model="bss.expense.category">
+        <field name="name">Domestic</field>
+        <field name="code">DOMESTIC</field>
+    </record>
+    <record id="expense_category_commercial" model="bss.expense.category">
+        <field name="name">Commercial</field>
+        <field name="code">COMMERCIAL</field>
+    </record>
+    <record id="expense_category_non_commercial" model="bss.expense.category">
+        <field name="name">Non-Commercial</field>
+        <field name="code">NON_COMMERCIAL</field>
+    </record>
+</odoo>
